@@ -1,26 +1,24 @@
 extends layout
 
 block content
-
-  h1 #{title}: #{author.name}
-  p= author.lifespan
+  h1(class='my-4 text-center text-2xl font-bold') #{title}: #{author.name}
+  p(class='mb-4')= author.lifespan
 
   if author_books.length
 
-    p #[strong Delete the following books before attempting to delete this author.]
+    p(class='mb-4 text-red-500') #[strong Delete the following books before attempting to delete this author.]
     div(style='margin-left:20px;margin-top:20px')
-      h4 Books
+      h4(class='text-lg font-semibold mb-2') Books
       dl
         each book in author_books
-          dt
-            a(href=book.url) #{book.title}
-          dd #{book.summary}
+          dt(class='mb-2')
+            a(href=book.url class='text-blue-500 hover:underline') #{book.title}
+          dd(class='mb-4') #{book.summary}
 
   else
-    p Do you really want to delete this Author?
+    p(class='mb-4') Do you really want to delete this Author?
 
     form(method='POST')
       div.form-group
-        input#authorid.form-control(type='hidden', name='authorid', value=author._id )
-
-      button.btn.btn-primary(type='submit') Delete
+        input#authorid.form-input(type='hidden' name='authorid' value=author._id class='appearance-none')
+      button.btn.btn-primary(type='submit' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Delete

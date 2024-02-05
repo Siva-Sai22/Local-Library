@@ -1,39 +1,37 @@
 extends layout
 
 block content
-  h1=title
+  h1(class='my-4 text-center text-2xl font-bold')=title
 
-  form(method='POST')
-    div.form-group
-      label(for='book') Book:
-      select#book.form-control(name='book' required)
+  form(method='POST' class='max-w-md mx-auto p-4 bg-white shadow-md rounded-lg')
+    div.form-group.mb-4
+      label(for='book' class='block text-gray-700 text-sm font-bold mb-2') Book:
+      select#book.form-select(name='book' required class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
         option(value='') --Please select a book--
         for book in book_list
           if selected_book==book._id.toString()
-            option(value=book._id, selected) #{book.title}
+            option(value=book._id selected) #{book.title}
           else
             option(value=book._id) #{book.title}
-
-    div.form-group
-      label(for='imprint') Imprint:
-      input#imprint.form-control(type='text' placeholder='Publisher and date information' name='imprint' required value=(undefined===bookinstance ? '' : bookinstance.imprint) )
-    div.form-group
-      label(for='due_back') Date when book available:
-      input#due_back.form-control(type='date' name='due_back' value=(undefined===bookinstance ? '' : bookinstance.due_back_yyyy_mm_dd))
-
-    div.form-group
-      label(for='status') Status:
-      select#status.form-control(name='status' required)
+    div.form-group.mb-4
+      label(for='imprint' class='block text-gray-700 text-sm font-bold mb-2') Imprint:
+      input#imprint.form-input(type='text' placeholder='Publisher and date information' name='imprint' required value=(undefined===bookinstance ? '' : bookinstance.imprint) class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
+    div.form-group.mb-4
+      label(for='due_back' class='block text-gray-700 text-sm font-bold mb-2') Date when book available:
+      input#due_back.form-input(type='date' name='due_back' value=(undefined===bookinstance ? '' : bookinstance.due_back_yyyy_mm_dd) class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
+    div.form-group.mb-4
+      label(for='status' class='block text-gray-700 text-sm font-bold mb-2') Status:
+      select#status.form-select(name='status' required class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
         option(value='') --Please select a status--
         each val in ['Maintenance', 'Available', 'Loaned', 'Reserved']
           if undefined===bookinstance || bookinstance.status!=val
             option(value=val)= val
           else
             option(value=val selected)= val
-
-    button.btn.btn-primary(type='submit') Submit
+    button.btn.btn-primary(type='submit' class='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline')
+      | Submit
 
   if errors
-    ul
+    ul.list-disc.text-red-500
       for error in errors
         li!= error.msg

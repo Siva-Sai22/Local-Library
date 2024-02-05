@@ -1,23 +1,22 @@
 extends layout
 
 block content
-
-  h1 Author: #{author.name}
-  p #{author.lifespan}
+  h1(class='my-4 text-center text-2xl font-bold') Author: #{author.name}
+  p(class='mb-4') #{author.lifespan}
 
   div(style='margin-left:20px;margin-top:20px')
 
-    h4 Books
+    h4(class='text-lg font-semibold mb-2') Books
     if author_books.length
       dl
         each book in author_books
-          dt
-            a(href=book.url) #{book.title}
-          dd #{book.summary}
+          dt(class='mb-2')
+            a(href=book.url class='text-blue-500 hover:underline') #{book.title}
+          dd(class='mb-4') #{book.summary}
     else
-      p This author has no books.
-  hr
-  p
-    a(href=author.url+'/delete') Delete Author
-  p
-    a(href=author.url+'/update') Update Author
+      p(class='mb-4') This author has no books.
+  hr(class='my-4')
+  p(class='mb-4')
+    a(href=author.url+'/delete' class='bg-red-500 text-white p-2 rounded-md') Delete Author
+  p(class='mb-2')
+    a(href=author.url+'/update' class='bg-blue-500 text-white p-2 rounded-md') Update Author

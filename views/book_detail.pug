@@ -1,39 +1,39 @@
 extends layout
 
 block content
-  h1 Title: #{book.title}
+  h1(class='my-4 text-center text-2xl font-bold') Title: #{book.title}
 
-  p #[strong Author: ]
-    a(href=book.author.url) #{book.author.name}
-  p #[strong Summary:] #{book.summary}
-  p #[strong ISBN:] #{book.isbn}
-  p #[strong Genre: ]
+  p(class='mb-4') #[strong Author: ]
+    a(href=book.author.url class='text-blue-500 hover:underline') #{book.author.name}
+  p(class='mb-4') #[strong Summary:] #{book.summary}
+  p(class='mb-4') #[strong ISBN:] #{book.isbn}
+  p(class='mb-4') #[strong Genre: ]
     each val, index in book.genre
-      a(href=val.url) #{val.name}
+      a(href=val.url class='text-blue-500 hover:underline') #{val.name}
       if index < book.genre.length - 1
         |,&nbsp;
 
   div(style='margin-left:20px;margin-top:20px')
-    h4 Copies
+    h4(class='text-lg font-semibold mb-2') Copies
 
     each val in book_instances
-      hr
+      hr(class='my-4')
       if val.status=='Available'
-        p.text-success #{val.status}
+        p(class='text-success') #{val.status}
       else if val.status=='Maintenance'
-        p.text-danger #{val.status}
+        p(class='text-danger') #{val.status}
       else
-        p.text-warning #{val.status}
-      p #[strong Imprint:] #{val.imprint}
+        p(class='text-warning') #{val.status}
+      p(class='mb-2') #[strong Imprint:] #{val.imprint}
       if val.status!='Available'
-        p #[strong Due back:] #{val.due_back}
-      p #[strong Id: ]
-        a(href=val.url) #{val._id}
+        p(class='mb-2') #[strong Due back:] #{val.due_back}
+      p(class='mb-2') #[strong Id: ]
+        a(href=val.url class='text-blue-500 hover:underline') #{val._id}
 
     else
-      p There are no copies of this book in the library.
-    hr
-  p
-    a(href=book.url+'/delete') Delete Book
-  p
-    a(href=book.url+'/update') Update Book
+      p(class='mb-4') There are no copies of this book in the library.
+    hr(class='my-4')
+  p(class='mb-4')
+    a(href=book.url+'/delete' class='bg-red-500 text-white p-2 rounded-md') Delete Book
+  p(class='mb-2')
+    a(href=book.url+'/update' class='bg-blue-500 text-white p-2 rounded-md') Update Book

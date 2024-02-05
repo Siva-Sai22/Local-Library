@@ -116,7 +116,7 @@ exports.genre_delete_post = asyncHandler(async (req, res, next) => {
 exports.genre_update_get = asyncHandler(async (req, res, next) => {
     const genre = await Genre.findById(req.params.id);
 
-    if (book === null) {
+    if (genre === null) {
         // No results.
         const err = new Error("Genre not found");
         err.status = 404;

@@ -1,14 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #[em LocalLibrary], a very basic Express website developed as a tutorial example on the Mozilla Developer Network.
+  h1(class="text-center my-4 text-2xl font-bold")= title
+  p(class="text-lg") Welcome to Local Library, a straightforward Express website designed for tutorial purposes. The site demonstrates simple database access and CRUD operations using Express and MongoDB.
+  p(class="text-lg") The library has the following record counts:
 
-  h1 Dynamic content
-
-  p The library has the following record counts:
-
-  ul
+  ul(class="flex flex-col gap-2 mt-4 ")
     li #[strong Books:] !{book_count}
     li #[strong Copies:] !{book_instance_count}
     li #[strong Copies available:] !{book_instance_available_count}

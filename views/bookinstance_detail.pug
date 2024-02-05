@@ -1,26 +1,25 @@
 extends layout
 
 block content
+  h1(class='my-4 text-center text-2xl font-bold') ID: #{bookinstance._id}
 
-  h1 ID: #{bookinstance._id}
+  p(class='mb-4') #[strong Title: ]
+    a(href=bookinstance.book.url class='text-blue-500 hover:underline') #{bookinstance.book.title}
+  p(class='mb-4') #[strong Imprint:] #{bookinstance.imprint}
 
-  p #[strong Title: ]
-    a(href=bookinstance.book.url) #{bookinstance.book.title}
-  p #[strong Imprint:] #{bookinstance.imprint}
-
-  p #[strong Status: ]
+  p(class='mb-4') #[strong Status: ]
     if bookinstance.status=='Available'
-      span.text-success #{bookinstance.status}
+      span(class='text-success') #{bookinstance.status}
     else if bookinstance.status=='Maintenance'
-      span.text-danger #{bookinstance.status}
+      span(class='text-danger') #{bookinstance.status}
     else
-      span.text-warning #{bookinstance.status}
+      span(class='text-warning') #{bookinstance.status}
 
   if bookinstance.status!='Available'
-    p #[strong Due back:] #{bookinstance.due_back_formatted}
+    p(class='mb-4') #[strong Due back:] #{bookinstance.due_back_formatted}
 
-  hr 
-  p  
-    a(href=bookinstance.url+'/delete') Delete Instance 
-  p  
-    a(href=bookinstance.url+'/update') Update Instance 
+  hr(class='my-4')
+  p(class='mb-4')
+    a(href=bookinstance.url+'/delete' class='bg-red-500 text-white p-2 rounded-md') Delete Instance 
+  p(class='mb-2')
+    a(href=bookinstance.url+'/update' class='bg-blue-500 text-white p-2 rounded-md') Update Instance 

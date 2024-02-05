@@ -2,24 +2,24 @@ extends layout
 
 block content
 
-  h1 #{title}: #{genre.name}
+  h1(class='my-4 text-center text-2xl font-bold') #{title}: #{genre.name}
 
   if genre_books.length 
 
-    p #[strong Delete the following books before attempting to delete this genre.]
+    p(class='mb-4 text-red-500') #[strong Delete the following books before attempting to delete this genre.]
     div(style='margin-left:20px;margin-top:20px')
-      h4 Books 
+      h4(class='text-lg font-semibold mb-2') Books 
       dl 
         each book in genre_books 
-          dt
-            a(href='book.url') #{book.title}
-          dd #{book.summary}
+          dt(class='mb-2')
+            a(href=book.url class='text-blue-500 hover:underline') #{book.title}
+          dd(class='mb-4') #{book.summary}
 
   else 
-    p Do you really want to delete this Genre?
+    p(class='mb-4') Do you really want to delete this Genre?
 
     form(method='POST')
       .form-group
-        input#genreid.form-control(type='hidden',name='genreid',value=genre._id)
+        input#genreid.form-input(type='hidden' name='genreid' value=genre._id class='appearance-none')
       
-      button.btn.btn-primary(type='submit') Delete
+      button.btn.btn-primary(type='submit' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Delete

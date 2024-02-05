@@ -1,15 +1,15 @@
 extends layout
 
 block content
-  h1= title
+  h1(class='my-4 text-center text-2xl font-bold')= title
 
-  form(method='POST')
-    div.form-group
-      label(for='title') Title:
-      input#title.form-control(type='text', placeholder='Name of book' name='title' required value=(undefined===book ? '' : book.title) )
-    div.form-group
-      label(for='author') Author:
-      select#author.form-control(name='author' required)
+  form(method='POST' class='max-w-md mx-auto p-4 bg-white shadow-md rounded-lg')
+    div.form-group.mb-4
+      label(for='title' class='block text-gray-700 text-sm font-bold mb-2') Title:
+      input#title.form-input(type='text', placeholder='Name of book' name='title' required value=(undefined===book ? '' : book.title) class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
+    div.form-group.mb-4
+      label(for='author' class='block text-gray-700 text-sm font-bold mb-2') Author:
+      select#author.form-select(name='author' required class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
         option(value='') --Please select an author--
         for author in authors
           if book
@@ -19,25 +19,26 @@ block content
               option(value=author._id) #{author.name}
           else
             option(value=author._id) #{author.name}
-    div.form-group
-      label(for='summary') Summary:
-      textarea#summary.form-control(placeholder='Summary' name='summary' required)= undefined===book ? '' : book.summary
-    div.form-group
-      label(for='isbn') ISBN:
-      input#isbn.form-control(type='text', placeholder='ISBN13' name='isbn' value=(undefined===book ? '' : book.isbn) required)
-    div.form-group
-      label Genre:
+    div.form-group.mb-4
+      label(for='summary' class='block text-gray-700 text-sm font-bold mb-2') Summary:
+      textarea#summary.form-textarea(placeholder='Summary' name='summary' required class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')= undefined===book ? '' : book.summary
+    div.form-group.mb-4
+      label(for='isbn' class='block text-gray-700 text-sm font-bold mb-2') ISBN:
+      input#isbn.form-input(type='text', placeholder='ISBN13' name='isbn' value=(undefined===book ? '' : book.isbn) required class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
+    div.form-group.mb-4
+      label(class='block text-gray-700 text-sm font-bold mb-2') Genre:
       div
         for genre in genres
           div(style='display: inline; padding-right:10px;')
             if genre.checked
-              input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked)
+              input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked class='mr-1')
             else
-              input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id)
-            label(for=genre._id) &nbsp;#{genre.name}
-    button.btn.btn-primary(type='submit') Submit
+              input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id class='mr-1')
+            label(for=genre._id class='text-gray-700') #{genre.name}
+    button.btn.btn-primary(type='submit' class='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline')
+      | Submit
 
   if errors
-    ul
+    ul.list-disc.text-red-500
       for error in errors
         li!= error.msg
