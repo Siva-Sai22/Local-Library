@@ -1,7 +1,5 @@
 # Node.js Local Library
 
-**Live Demo:** [https://handsome-precious-boysenberry.glitch.me]
-
 This is a simple local library website built with Node.js and Express.
 
 ## Project Structure
