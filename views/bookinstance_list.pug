@@ -1,21 +1,24 @@
 extends layout
 
 block content
-  h1(class='my-4 text-center text-2xl font-bold')= title
+  div(class='max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800')= title
 
-  if bookinstance_list.length
-    ul
-      each val in bookinstance_list
-        li
-          a(href=val.url class="text-blue-500 hover:underline") #{val.book.title} : #{val.imprint} -&nbsp;
-          if val.status=='Available'
-            span(class="text-green-600") #{val.status}
-          else if val.status=='Maintenance'
-            span(class='text-orange-400') #{val.status}
-          else
-            span(class='text-red-600') #{val.status}
-          if val.status!='Available'
-            span  (Due: #{val.due_back_formatted} )
+    if bookinstance_list.length
+      ul(class='mt-4')
+        each val in bookinstance_list
+          li(class='mb-2')
+            a(href=val.url class='text-blue-500 hover:underline') #{val.book.title} : #{val.imprint} -
+            span(class='ml-2')
+              | Status: 
+              if val.status === 'Available'
+                span(class='text-green-600') #{val.status}
+              else if val.status === 'Maintenance'
+                span(class='text-orange-400') #{val.status}
+              else
+                span(class='text-red-600') #{val.status}
+              if val.status !== 'Available'
+                span(class='ml-2 text-gray-700') (Due: #{val.due_back_formatted})
 
-  else
-    p There are no book copies in this library.
+    else
+      p(class='text-lg text-gray-700 mt-4') There are no book copies in this library.

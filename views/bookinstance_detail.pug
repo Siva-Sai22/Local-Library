@@ -1,25 +1,29 @@
 extends layout
 
 block content
-  h1(class='my-4 text-center text-2xl font-bold') ID: #{bookinstance._id}
+  div(class='max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800') ID: #{bookinstance._id}
 
-  p(class='mb-4') #[strong Title: ]
-    a(href=bookinstance.book.url class='text-blue-500 hover:underline') #{bookinstance.book.title}
-  p(class='mb-4') #[strong Imprint:] #{bookinstance.imprint}
+    p(class='mb-4') #[strong Title: ]
+      a(href=bookinstance.book.url class='text-blue-500 hover:underline') #{bookinstance.book.title}
+    
+    p(class='mb-4') #[strong Imprint:] #{bookinstance.imprint}
 
-  p(class='mb-4') #[strong Status: ]
-    if bookinstance.status=='Available'
-      span(class='text-success') #{bookinstance.status}
-    else if bookinstance.status=='Maintenance'
-      span(class='text-danger') #{bookinstance.status}
-    else
-      span(class='text-warning') #{bookinstance.status}
+    p(class='mb-4') #[strong Status: ]
+      if bookinstance.status === 'Available'
+        span(class='text-green-600') #{bookinstance.status}
+      else if bookinstance.status === 'Maintenance'
+        span(class='text-red-600') #{bookinstance.status}
+      else
+        span(class='text-yellow-500') #{bookinstance.status}
 
-  if bookinstance.status!='Available'
-    p(class='mb-4') #[strong Due back:] #{bookinstance.due_back_formatted}
+    if bookinstance.status !== 'Available'
+      p(class='mb-4') #[strong Due back:] #{bookinstance.due_back_formatted}
 
-  hr(class='my-4')
-  p(class='mb-4')
-    a(href=bookinstance.url+'/delete' class='bg-red-500 text-white p-2 rounded-md') Delete Instance 
-  p(class='mb-2')
-    a(href=bookinstance.url+'/update' class='bg-blue-500 text-white p-2 rounded-md') Update Instance 
+    hr(class='my-4')
+
+    div(class='flex justify-between')
+      p(class='mb-4')
+        a(href=bookinstance.url+'/delete' class='bg-red-500 text-white py-2 px-4 rounded-md inline-block hover:bg-red-700 transition-colors') Delete Instance
+      p(class='mb-4')
+        a(href=bookinstance.url+'/update' class='bg-blue-500 text-white py-2 px-4 rounded-md inline-block hover:bg-blue-700 transition-colors') Update Instance

@@ -1,24 +1,24 @@
 extends layout
 
 block content
-  h1(class='my-4 text-center text-2xl font-bold') #{title}: #{author.name}
-  p(class='mb-4')= author.lifespan
+  div(class='container mx-auto p-4')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800') #{title}: #{author.name}
+    p(class='mb-4 text-center text-gray-600')= author.lifespan
 
-  if author_books.length
-
-    p(class='mb-4 text-red-500') #[strong Delete the following books before attempting to delete this author.]
-    div(style='margin-left:20px;margin-top:20px')
-      h4(class='text-lg font-semibold mb-2') Books
-      dl
-        each book in author_books
-          dt(class='mb-2')
-            a(href=book.url class='text-blue-500 hover:underline') #{book.title}
-          dd(class='mb-4') #{book.summary}
-
-  else
-    p(class='mb-4') Do you really want to delete this Author?
-
-    form(method='POST')
-      div.form-group
-        input#authorid.form-input(type='hidden' name='authorid' value=author._id class='appearance-none')
-      button.btn.btn-primary(type='submit' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Delete
+    if author_books.length
+      div(class='mt-8')
+        p(class='mb-4 text-red-500') #[strong Delete the following books before attempting to delete this author.]
+        div(class='ml-4')
+          h4(class='text-lg font-semibold mb-2 text-gray-800') Books
+          dl(class='mb-8')
+            each book in author_books
+              dt(class='mb-2 text-blue-500 hover:underline')
+                a(href=book.url)= book.title
+              dd(class='mb-4 text-gray-700')= book.summary
+    else
+      div(class='mt-8')
+        p(class='mb-4 text-gray-800') Do you really want to delete this Author?
+        form(method='POST' class='mt-4')
+          div.form-group
+            input#authorid.form-input(type='hidden' name='authorid' value=author._id class='appearance-none')
+          button.btn.btn-primary(type='submit' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Delete

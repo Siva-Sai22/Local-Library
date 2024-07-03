@@ -1,22 +1,24 @@
 extends layout
 
 block content
-  h1(class='my-4 text-center text-2xl font-bold') Genre: #{genre.name}
+  div(class='max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800') Genre: #{genre.name}
 
-  div(style='margin-left:20px;margin-top:20px')
+    div(class='mt-6 ml-4')
+      h4(class='text-lg font-semibold mb-2') Books
+      if genre_books.length
+        dl(class='mb-4')
+          each book in genre_books
+            dt(class='mb-2')
+              a(href=book.url class='text-blue-500 hover:underline') #{book.title}
+            dd(class='mb-4 text-gray-700') #{book.summary}
+      else
+        p(class='text-gray-700 mb-4') This genre has no books.
 
-    h4(class='text-lg font-semibold mb-2') Books
-    if genre_books.length
-      dl
-        each book in genre_books
-          dt(class='mb-2')
-            a(href=book.url class='text-blue-500 hover:underline') #{book.title}
-          dd(class='mb-4') #{book.summary}
-    else
-      p(class='mb-4') This genre has no books.
+    hr(class='my-4')
 
-  hr(class='my-4')
-  p(class='mb-4')
-    a(href=genre.url+'/delete' class='bg-red-500 text-white p-2 rounded-md') Delete Genre 
-  p(class='mb-2')
-    a(href=genre.url+'/update' class='bg-blue-500 text-white p-2 rounded-md') Update Genre 
+    div(class='flex justify-between items-center')
+      p(class='mb-4')
+        a(href=genre.url+'/delete' class='bg-red-500 text-white py-2 px-4 rounded-md inline-block hover:bg-red-700 transition-colors') Delete Genre
+      p(class='mb-4')
+        a(href=genre.url+'/update' class='bg-blue-500 text-white py-2 px-4 rounded-md inline-block hover:bg-blue-700 transition-colors') Update Genre

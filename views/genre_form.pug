@@ -1,17 +1,18 @@
 extends layout
 
 block content
+  div(class='max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800') #{title}
 
-  h1(class='my-4 text-center text-2xl font-bold') #{title}
+    form(method='POST' class='max-w-md mx-auto p-4 bg-white shadow-md rounded-lg')
+      div(class='mb-4')
+        label(for='name' class='block text-gray-700 text-sm font-bold mb-2') Genre:
+        input#name(type='text' placeholder='Fantasy, Poetry etc.' name='name' required value=(undefined===genre ? '' : genre.name) class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
+      
+      button(type='submit' class='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded')
+        | Submit
 
-  form(method='POST' class='max-w-md mx-auto p-4 bg-white shadow-md rounded-lg')
-    div.form-group.mb-4
-      label(for='name' class='block text-gray-700 text-sm font-bold mb-2') Genre:
-      input#name.form-input(type='text', placeholder='Fantasy, Poetry etc.' name='name' required value=(undefined===genre ? '' : genre.name) class='w-full px-3 py-2 leading-tight focus:outline-none focus:shadow-outline border border-gray-300 rounded appearance-none')
-    button.btn.btn-primary(type='submit' class='w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded')
-      | Submit
-
-  if errors
-    ul.list-disc.text-red-500
-      for error in errors
-        li!= error.msg
+    if errors
+      ul(class='list-disc text-red-500 mt-4')
+        each error in errors
+          li= error.msg

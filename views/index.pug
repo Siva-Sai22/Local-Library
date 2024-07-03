@@ -1,13 +1,14 @@
 extends layout
 
 block content
-  h1(class="text-center my-4 text-2xl font-bold")= title
-  p(class="text-lg") Welcome to Local Library, a straightforward Express website designed for tutorial purposes. The site demonstrates simple database access and CRUD operations using Express and MongoDB.
-  p(class="text-lg") The library has the following record counts:
-
-  ul(class="flex flex-col gap-2 mt-4 ")
-    li #[strong Books:] !{book_count}
-    li #[strong Copies:] !{book_instance_count}
-    li #[strong Copies available:] !{book_instance_available_count}
-    li #[strong Authors:] !{author_count}
-    li #[strong Genres:] !{genre_count}
+  div(class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg")
+    h1(class="text-center my-4 text-3xl font-bold text-gray-800")= title
+    p(class="text-lg text-gray-700 mb-2") Welcome to Local Library, a modern library management system that allows users to add, modify, and delete books, book instances, authors, and genres.
+    p(class="text-lg text-gray-700") The library has the following record counts:
+  
+    ul(class="flex flex-col gap-2 mt-4 text-lg text-gray-800")
+      li #[strong Books:] !{book_count}
+      li #[strong Copies:] !{book_instance_count}
+      li #[strong Copies available:] !{book_instance_available_count}
+      li #[strong Authors:] !{author_count}
+      li #[strong Genres:] !{genre_count}

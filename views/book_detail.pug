@@ -1,39 +1,47 @@
 extends layout
 
 block content
-  h1(class='my-4 text-center text-2xl font-bold') Title: #{book.title}
+  div(class='container mx-auto p-4')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800') Title: #{book.title}
 
-  p(class='mb-4') #[strong Author: ]
-    a(href=book.author.url class='text-blue-500 hover:underline') #{book.author.name}
-  p(class='mb-4') #[strong Summary:] #{book.summary}
-  p(class='mb-4') #[strong ISBN:] #{book.isbn}
-  p(class='mb-4') #[strong Genre: ]
-    each val, index in book.genre
-      a(href=val.url class='text-blue-500 hover:underline') #{val.name}
-      if index < book.genre.length - 1
-        |,&nbsp;
+    p(class='mb-4') #[strong Author: ]
+      a(href=book.author.url class='text-blue-500 hover:underline') #{book.author.name}
+    p(class='mb-4') #[strong Summary:] #{book.summary}
+    p(class='mb-4') #[strong ISBN:] #{book.isbn}
+    p(class='mb-4') #[strong Genre: ]
+      each val, index in book.genre
+        a(href=val.url class='text-blue-500 hover:underline') #{val.name}
+        if index < book.genre.length - 1
+          |,&nbsp;
 
-  div(style='margin-left:20px;margin-top:20px')
-    h4(class='text-lg font-semibold mb-2') Copies
+    div(class='mt-8')
+      h4(class='text-lg font-semibold mb-2') Copies
 
-    each val in book_instances
-      hr(class='my-4')
-      if val.status=='Available'
-        p(class='text-success') #{val.status}
-      else if val.status=='Maintenance'
-        p(class='text-danger') #{val.status}
+      if book_instances.length
+        each val in book_instances
+          div(class='mb-4 border rounded-lg p-4 bg-white shadow-md')
+            if val.status=='Available'
+              p(class='text-green-600') #{val.status}
+            else if val.status=='Maintenance'
+              p(class='text-orange-400') #{val.status}
+            else
+              p(class='text-red-600') #{val.status}
+            p(class='mb-2') #[strong Imprint:] #{val.imprint}
+            if val.status!='Available'
+              p(class='mb-2') #[strong Due back:] #{val.due_back}
+            p(class='mb-2') #[strong Id: ]
+              a(href=val.url class='text-blue-500 hover:underline') #{val._id}
       else
-        p(class='text-warning') #{val.status}
-      p(class='mb-2') #[strong Imprint:] #{val.imprint}
-      if val.status!='Available'
-        p(class='mb-2') #[strong Due back:] #{val.due_back}
-      p(class='mb-2') #[strong Id: ]
-        a(href=val.url class='text-blue-500 hover:underline') #{val._id}
+        p(class='mb-4') There are no copies of this book in the library.
 
-    else
-      p(class='mb-4') There are no copies of this book in the library.
-    hr(class='my-4')
-  p(class='mb-4')
-    a(href=book.url+'/delete' class='bg-red-500 text-white p-2 rounded-md') Delete Book
-  p(class='mb-2')
-    a(href=book.url+'/update' class='bg-blue-500 text-white p-2 rounded-md') Update Book
+    hr(class='my-8')
+
+    div(class='flex justify-end space-x-4')
+      a(href=book.url+'/delete' class='bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors') Delete Book
+      a(href=book.url+'/update' class='bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors') Update Book
+
+  if errors
+    div(class='container mx-auto mt-4')
+      ul.list-disc.text-red-500
+        each error in errors
+          li= error.msg

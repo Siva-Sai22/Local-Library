@@ -1,36 +1,42 @@
-extends layout 
+extends layout
 
-block content 
-  h1(class='my-4 text-center text-2xl font-bold') #{title}: #{book.title}
+block content
+  div(class='container mx-auto p-4')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800') #{title}: #{book.title}
 
-  if bookInstances.length 
-
-    p(class='mb-4 text-red-500') #[strong Delete the following book instances before attempting to delete this book.]
-    div(style='margin-left:20px;margin-top:20px')
-      h4(class='text-lg font-semibold mb-2') Book instances
-      dl
+    if bookInstances.length 
+      p(class='mb-4 text-red-500') #[strong Delete the following book instances before attempting to delete this book.]
+      div(class='mt-4')
         each bookinstance in bookInstances 
-          dt(class='mb-2') #[strong Title: ]
-            p #{bookinstance.book.title}
-          dd(class='mb-4') 
-            a(href=bookinstance.url class='text-blue-500 hover:underline') #[strong ID:] #{bookinstance._id}
-            p #[strong Imprint:] #{bookinstance.imprint}
-            p #[strong Status: ]
-                if bookinstance.status=='Available'
-                  span(class='text-success') #{bookinstance.status}
-                else if bookinstance.status=='Maintenance'
-                  span(class='text-danger') #{bookinstance.status}
-                else
-                  span(class='text-warning') #{bookinstance.status}
+          div(class='mb-4 border rounded-lg p-4 bg-white shadow-md')
+            h4(class='text-lg font-semibold mb-2') Book Instance
+            dl
+              dt(class='mb-2') #[strong Title: ]
+                p #{bookinstance.book.title}
+              dd(class='mb-2') 
+                a(href=bookinstance.url class='text-blue-500 hover:underline') #[strong ID:] #{bookinstance._id}
+                p #[strong Imprint:] #{bookinstance.imprint}
+                p #[strong Status: ]
+                  if bookinstance.status=='Available'
+                    span(class='text-green-600') #{bookinstance.status}
+                  else if bookinstance.status=='Maintenance'
+                    span(class='text-orange-400') #{bookinstance.status}
+                  else
+                    span(class='text-red-600') #{bookinstance.status}
+                if bookinstance.status!='Available'
+                  p #[strong Due back:] #{bookinstance.due_back_formatted}
 
-            if bookinstance.status!='Available'
-                p #[strong Due back:] #{bookinstance.due_back_formatted}
+    else 
+      p(class='mb-4') Do you really want to delete this Book?
 
-  else 
-    p(class='mb-4') Do you really want to delete this Book?
+      form(method='POST' class='max-w-md mx-auto p-4 bg-white shadow-md rounded-lg')
+        div.form-group
+          input#bookid.form-input(type='hidden' name='bookid' value=book._id class='appearance-none')
+        button.btn.btn-primary(type='submit' class='w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline')
+          | Delete
 
-    form(method='POST')
-      div.form-group
-        input#bookid.form-input(type='hidden' name='bookid' value=book._id class='appearance-none')
-
-      button.btn.btn-primary(type='submit' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Delete
+  if errors
+    div(class='container mx-auto mt-4')
+      ul.list-disc.text-red-500
+        each error in errors
+          li= error.msg

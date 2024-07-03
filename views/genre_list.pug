@@ -1,11 +1,12 @@
-extends layout 
+extends layout
 
-block content 
-  h1(class='my-4 text-center text-2xl font-bold')= title 
-  if genre_list.length 
-    ul 
-      each genre in genre_list 
-        li 
-          a(href=genre.url class="text-blue-500 hover:underline") #{genre.name}
-  else 
-    p There are no genres.
+block content
+  div(class='max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg')
+    h1(class='my-4 text-center text-3xl font-bold text-gray-800')= title
+    if genre_list.length
+      ul(class='mt-4')
+        each genre in genre_list
+          li(class='text-lg text-gray-800')
+            a(href=genre.url class='text-blue-500 hover:underline') #{genre.name}
+    else
+      p(class='text-lg text-gray-700') There are no genres.
